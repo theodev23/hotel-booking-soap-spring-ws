@@ -47,7 +47,7 @@ public class HotelMetierService {
                 "chambre1.jpg"
         ));
 
-        Agence a1 = new Agence("AG001", "agence1", "secret", 0.9);
+        Agence a1 = new Agence("AG001", "agence1", "secret");
         hotel.ajouterAgence(a1);
     }
 
