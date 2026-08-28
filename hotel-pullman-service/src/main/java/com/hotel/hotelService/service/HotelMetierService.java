@@ -65,6 +65,8 @@ public class HotelMetierService {
 
             if (!hotel.getAdresse().getVille().equalsIgnoreCase(ville)) continue;
             if (c.getNombreLits() < nbPersonnes) continue;
+            if (debut.isBefore(c.getDateDebutDisponible())) continue;
+            if (fin.isAfter(c.getDateFinDisponible())) continue;
 
             OffreType o = new OffreType();
             o.setIdOffre("Pullman-" + c.getNumero());
