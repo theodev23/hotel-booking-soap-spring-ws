@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://agence.com/soap"
+           xmlns:tns="http://agence.com/soap"
+           elementFormDefault="qualified">
+
+    <!-- ======================
+         TYPE OFFRE
+    ======================= -->
+    <xs:complexType name="OffreType">
+        <xs:sequence>
+            <xs:element name="idOffre" type="xs:string"/>
+            <xs:element name="prix" type="xs:double"/>
+            <xs:element name="dateDebut" type="xs:date"/>
+            <xs:element name="dateFin" type="xs:date"/>
+            <xs:element name="nbLits" type="xs:int"/>
+            <xs:element name="hotel" type="xs:string"/>
+            <!-- Image renvoyée par les hôtels -->
+            <xs:element name="image" type="xs:base64Binary" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- ======================
+         CONSULTATION
+    ======================= -->
+    <xs:element name="ConsultationAgenceRequest">
+        <xs:complexType>
+            <xs:sequence>
+
+                <!-- Authentification agence -->
+                <xs:element name="idAgence" type="xs:string"/>
+                <xs:element name="login" type="xs:string"/>
+                <xs:element name="password" type="xs:string"/>
+
+                <!-- Critères -->
+                <xs:element name="ville" type="xs:string"/>
+                <xs:element name="dateArrivee" type="xs:date"/>
+                <xs:element name="dateDepart" type="xs:date"/>
+                <xs:element name="nbPersonnes" type="xs:int"/>
+
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="ConsultationAgenceResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="offre" type="tns:OffreType" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- ======================
+         RESERVATION
+    ======================= -->
+    <xs:element name="ReservationAgenceRequest">
+        <xs:complexType>
+            <xs:sequence>
+
+                <!-- Authentification agence -->
+                <xs:element name="idAgence" type="xs:string"/>
+                <xs:element name="login" type="xs:string"/>
+                <xs:element name="password" type="xs:string"/>
+
+                <!-- Données réservation -->
+                <xs:element name="idOffre" type="xs:string"/>
+                <xs:element name="nomClient" type="xs:string"/>
+                <xs:element name="prenomClient" type="xs:string"/>
+                <xs:element name="carte" type="xs:string"/>
+
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="ReservationAgenceResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="status" type="xs:string"/>
+                <xs:element name="message" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
