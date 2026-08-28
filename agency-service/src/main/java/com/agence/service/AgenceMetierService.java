@@ -8,8 +8,11 @@ import java.util.stream.Collectors;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.ws.client.WebServiceClientException;
 import org.springframework.ws.client.core.WebServiceTemplate;
 
 // Types exposés par le web service Agence
@@ -23,6 +26,9 @@ import com.hotel.wsdl.ReservationResponse;
 
 @Service
 public class AgenceMetierService {
+
+    private static final Logger LOGGER =
+            LoggerFactory.getLogger(AgenceMetierService.class);
 
     private final WebServiceTemplate webServiceTemplate;
     private final String hotelImperatorUri;
@@ -87,8 +93,11 @@ public class AgenceMetierService {
             if (rep1 != null && rep1.getOffre() != null) {
                 rep1.getOffre().forEach(o -> resultats.add(mapOffre(o)));
             }
-        } catch (Exception e) {
-            System.out.println("Impossible de joindre Hotel 1 : " + e.getMessage());
+        } catch (WebServiceClientException exception) {
+            LOGGER.warn(
+                    "Unable to contact Hotel Imperator during consultation: {}",
+                    exception.getMessage()
+            );
         }
 
         // Hôtel 2
@@ -99,8 +108,11 @@ public class AgenceMetierService {
             if (rep2 != null && rep2.getOffre() != null) {
                 rep2.getOffre().forEach(o -> resultats.add(mapOffre(o)));
             }
-        } catch (Exception e) {
-            System.out.println("Impossible de joindre Hotel 2 : " + e.getMessage());
+        } catch (WebServiceClientException exception) {
+            LOGGER.warn(
+                    "Unable to contact Hotel Pullman during consultation: {}",
+                    exception.getMessage()
+            );
         }
 
      // filtrage
@@ -164,8 +176,11 @@ public class AgenceMetierService {
             if (rep1 != null && "OK".equalsIgnoreCase(rep1.getStatus())) {
                 ok = true;
             }
-        } catch (Exception e) {
-            System.out.println("Impossible de joindre Hotel 1 (reservation) : " + e.getMessage());
+        } catch (WebServiceClientException exception) {
+            LOGGER.warn(
+                    "Unable to contact Hotel Imperator during reservation: {}",
+                    exception.getMessage()
+            );
         }
 
         // Hôtel 2
@@ -177,8 +192,11 @@ public class AgenceMetierService {
                 if (rep2 != null && "OK".equalsIgnoreCase(rep2.getStatus())) {
                     ok = true;
                 }
-            } catch (Exception e) {
-                System.out.println("Impossible de joindre Hotel 2 (reservation) : " + e.getMessage());
+            } catch (WebServiceClientException exception) {
+                LOGGER.warn(
+                        "Unable to contact Hotel Pullman during reservation: {}",
+                        exception.getMessage()
+                );
             }
         }
 

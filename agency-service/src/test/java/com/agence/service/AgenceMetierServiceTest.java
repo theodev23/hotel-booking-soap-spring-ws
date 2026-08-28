@@ -17,6 +17,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.ws.client.WebServiceIOException;
 import org.springframework.ws.client.core.WebServiceTemplate;
 
 import com.agence.wsdl.OffreType;
@@ -102,7 +103,7 @@ class AgenceMetierServiceTest {
                 eq(IMPERATOR_URI),
                 any(ConsultationRequest.class)
         )).thenThrow(
-                new RuntimeException("Imperator unavailable")
+                new WebServiceIOException("Imperator unavailable")
         );
 
         when(webServiceTemplate.marshalSendAndReceive(
@@ -138,14 +139,14 @@ class AgenceMetierServiceTest {
                 eq(IMPERATOR_URI),
                 any(ConsultationRequest.class)
         )).thenThrow(
-                new RuntimeException("Imperator unavailable")
+                new WebServiceIOException("Imperator unavailable")
         );
 
         when(webServiceTemplate.marshalSendAndReceive(
                 eq(PULLMAN_URI),
                 any(ConsultationRequest.class)
         )).thenThrow(
-                new RuntimeException("Pullman unavailable")
+                new WebServiceIOException("Pullman unavailable")
         );
 
         List<OffreType> offers = service.consulter(
@@ -226,7 +227,7 @@ class AgenceMetierServiceTest {
                 eq(IMPERATOR_URI),
                 any(ReservationRequest.class)
         )).thenThrow(
-                new RuntimeException("Imperator unavailable")
+                new WebServiceIOException("Imperator unavailable")
         );
 
         when(webServiceTemplate.marshalSendAndReceive(

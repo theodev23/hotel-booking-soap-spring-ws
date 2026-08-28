@@ -1,6 +1,8 @@
 package com.hotel.hotelService.service;
 
 import com.hotel.model.*;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,10 +12,15 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import com.hotel.wsdl.OffreType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
 public class HotelMetierService {
+
+    private static final Logger LOGGER =
+            LoggerFactory.getLogger(HotelMetierService.class);
 
     private Hotel hotel;
     private final Set<String> reservedOfferIds = ConcurrentHashMap.newKeySet();
@@ -55,7 +62,7 @@ public class HotelMetierService {
                                      String mdp) {
 
         if (hotel.verifierAgence(idAgence, login, mdp) == null) {
-            System.out.println("Agence non autorisée – accès refusé");
+            LOGGER.warn("Unauthorized agency consultation attempt: {}", idAgence);
             return new ArrayList<>();
         }
 
@@ -97,11 +104,13 @@ public class HotelMetierService {
     // Conversion date
     private XMLGregorianCalendar toXML(LocalDate date) {
         try {
-            return javax.xml.datatype.DatatypeFactory
-                    .newInstance()
+            return DatatypeFactory.newInstance()
                     .newXMLGregorianCalendar(date.toString());
-        } catch (Exception e) {
-            return null;
+        } catch (DatatypeConfigurationException exception) {
+            throw new IllegalStateException(
+                    "Unable to create XML date",
+                    exception
+            );
         }
     }
 
@@ -116,7 +125,7 @@ public class HotelMetierService {
                             String mdp) {
 
         if (hotel.verifierAgence(idAgence, login, mdp) == null) {
-            System.out.println("Agence non autorisée — réservation refusée");
+            LOGGER.warn("Unauthorized agency reservation attempt: {}", idAgence);
             return false;
         }
 
@@ -134,17 +143,23 @@ public class HotelMetierService {
 
     // Image
     private byte[] loadImage(String imageName) {
-        try {
-            InputStream in = getClass()
-                    .getClassLoader()
-                    .getResourceAsStream("static/" + imageName);
+        try (InputStream inputStream = getClass()
+                .getClassLoader()
+                .getResourceAsStream("static/" + imageName)) {
 
-            if (in == null) return null;
+            if (inputStream == null) {
+                LOGGER.warn("Hotel room image not found: {}", imageName);
+                return null;
+            }
 
-            return in.readAllBytes();
+            return inputStream.readAllBytes();
 
-        } catch (Exception e) {
-            System.out.println("Erreur chargement image : " + e.getMessage());
+        } catch (IOException exception) {
+            LOGGER.warn(
+                    "Unable to load hotel room image {}: {}",
+                    imageName,
+                    exception.getMessage()
+            );
             return null;
         }
     }
