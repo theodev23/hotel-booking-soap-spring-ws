@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import com.hotel.wsdl.OffreType;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +16,7 @@ import org.springframework.stereotype.Service;
 public class HotelMetierService {
 
     private Hotel hotel;
-    private List<Reservation> reservations = new ArrayList<>();
+    private final Set<String> reservedOfferIds = ConcurrentHashMap.newKeySet();
 
     public HotelMetierService() {
 
@@ -68,8 +70,11 @@ public class HotelMetierService {
             if (debut.isBefore(c.getDateDebutDisponible())) continue;
             if (fin.isAfter(c.getDateFinDisponible())) continue;
 
+            String offerId = "Pullman-" + c.getNumero();
+            if (reservedOfferIds.contains(offerId)) continue;
+
             OffreType o = new OffreType();
-            o.setIdOffre("Pullman-" + c.getNumero());
+            o.setIdOffre(offerId);
             o.setPrix(c.getPrixParNuit());
             o.setDateDebut(toXML(c.getDateDebutDisponible()));
             o.setDateFin(toXML(c.getDateFinDisponible()));
@@ -109,7 +114,15 @@ public class HotelMetierService {
             return false;
         }
 
-        return true;
+        boolean offerExists = hotel.getChambres().stream()
+                .map(chambre -> "Pullman-" + chambre.getNumero())
+                .anyMatch(idoffre::equals);
+
+        if (!offerExists) {
+            return false;
+        }
+
+        return reservedOfferIds.add(idoffre);
     }
 
     private byte[] loadImage(String imageName) {

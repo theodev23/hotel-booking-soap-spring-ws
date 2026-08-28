@@ -77,6 +77,105 @@ class HotelMetierServiceTest {
         assertTrue(offers.isEmpty());
     }
 
+
+    @Test
+    void shouldReserveExistingOffer() {
+        boolean reserved = service.reserver(
+                "Imperator-101",
+                "Doe",
+                "Jane",
+                "4111111111111111",
+                "AG001",
+                "agence1",
+                "secret"
+        );
+
+        assertTrue(reserved);
+    }
+
+    @Test
+    void shouldRejectUnknownOffer() {
+        boolean reserved = service.reserver(
+                "Imperator-999",
+                "Doe",
+                "Jane",
+                "4111111111111111",
+                "AG001",
+                "agence1",
+                "secret"
+        );
+
+        assertTrue(!reserved);
+    }
+
+    @Test
+    void shouldRejectDuplicateReservation() {
+        boolean firstReservation = service.reserver(
+                "Imperator-101",
+                "Doe",
+                "Jane",
+                "4111111111111111",
+                "AG001",
+                "agence1",
+                "secret"
+        );
+
+        boolean secondReservation = service.reserver(
+                "Imperator-101",
+                "Smith",
+                "John",
+                "5555555555554444",
+                "AG001",
+                "agence1",
+                "secret"
+        );
+
+        assertTrue(firstReservation);
+        assertTrue(!secondReservation);
+    }
+
+    @Test
+    void shouldRejectReservationForUnauthorizedAgency() {
+        boolean reserved = service.reserver(
+                "Imperator-101",
+                "Doe",
+                "Jane",
+                "4111111111111111",
+                "UNKNOWN",
+                "invalid",
+                "invalid"
+        );
+
+        assertTrue(!reserved);
+    }
+
+    @Test
+    void shouldHideReservedOfferFromConsultation() {
+        boolean reserved = service.reserver(
+                "Imperator-101",
+                "Doe",
+                "Jane",
+                "4111111111111111",
+                "AG001",
+                "agence1",
+                "secret"
+        );
+
+        assertTrue(reserved);
+
+        List<OffreType> offers = service.consulter(
+                "Montpellier",
+                date("2026-06-01"),
+                date("2026-06-05"),
+                2,
+                "AG001",
+                "agence1",
+                "secret"
+        );
+
+        assertTrue(offers.isEmpty());
+    }
+
     private XMLGregorianCalendar date(String value) {
         try {
             return DatatypeFactory.newInstance()
