@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.ws.client.core.WebServiceTemplate;
 
@@ -24,14 +25,19 @@ import com.hotel.wsdl.ReservationResponse;
 public class AgenceMetierService {
 
     private final WebServiceTemplate webServiceTemplate;
+    private final String hotelImperatorUri;
+    private final String hotelPullmanUri;
 
-    public AgenceMetierService(WebServiceTemplate webServiceTemplate) {
+    public AgenceMetierService(
+            WebServiceTemplate webServiceTemplate,
+            @Value("${hotels.imperator.uri}") String hotelImperatorUri,
+            @Value("${hotels.pullman.uri}") String hotelPullmanUri) {
+
         this.webServiceTemplate = webServiceTemplate;
+        this.hotelImperatorUri = hotelImperatorUri;
+        this.hotelPullmanUri = hotelPullmanUri;
     }
 
-    // URLs des 2 hôtels
-    private static final String HOTEL1_URL = "http://localhost:8081/ws";
-    private static final String HOTEL2_URL = "http://localhost:8082/ws";
 
     // Tarifs
     private static final Map<String, Double> TARIFS_AGENCES = Map.of(
@@ -76,7 +82,7 @@ public class AgenceMetierService {
         // Hôtel 1
         try {
             ConsultationResponse rep1 =
-                (ConsultationResponse) webServiceTemplate.marshalSendAndReceive(HOTEL1_URL, req);
+                (ConsultationResponse) webServiceTemplate.marshalSendAndReceive(hotelImperatorUri, req);
 
             if (rep1 != null && rep1.getOffre() != null) {
                 rep1.getOffre().forEach(o -> resultats.add(mapOffre(o)));
@@ -88,7 +94,7 @@ public class AgenceMetierService {
         // Hôtel 2
         try {
             ConsultationResponse rep2 =
-                (ConsultationResponse) webServiceTemplate.marshalSendAndReceive(HOTEL2_URL, req);
+                (ConsultationResponse) webServiceTemplate.marshalSendAndReceive(hotelPullmanUri, req);
 
             if (rep2 != null && rep2.getOffre() != null) {
                 rep2.getOffre().forEach(o -> resultats.add(mapOffre(o)));
@@ -153,7 +159,7 @@ public class AgenceMetierService {
         // Hôtel 1
         try {
             ReservationResponse rep1 =
-                (ReservationResponse) webServiceTemplate.marshalSendAndReceive(HOTEL1_URL, req);
+                (ReservationResponse) webServiceTemplate.marshalSendAndReceive(hotelImperatorUri, req);
 
             if (rep1 != null && "OK".equalsIgnoreCase(rep1.getStatus())) {
                 ok = true;
@@ -166,7 +172,7 @@ public class AgenceMetierService {
         if (!ok) {
             try {
                 ReservationResponse rep2 =
-                    (ReservationResponse) webServiceTemplate.marshalSendAndReceive(HOTEL2_URL, req);
+                    (ReservationResponse) webServiceTemplate.marshalSendAndReceive(hotelPullmanUri, req);
 
                 if (rep2 != null && "OK".equalsIgnoreCase(rep2.getStatus())) {
                     ok = true;
