@@ -1,5 +1,9 @@
 # Hotel Booking SOAP Spring-WS
 
+[![CI](https://github.com/theodev23/hotel-booking-soap-spring-ws/actions/workflows/ci.yml/badge.svg)](https://github.com/theodev23/hotel-booking-soap-spring-ws/actions/workflows/ci.yml)
+
+**Repository:** https://github.com/theodev23/hotel-booking-soap-spring-ws
+
 A distributed hotel booking system built with **Java 21**, **Spring Boot 4** and
 **Spring Web Services**.
 
