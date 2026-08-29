@@ -47,8 +47,8 @@ class HotelEndpointSoapTest {
         OffreType offer = new OffreType();
         offer.setIdOffre("Pullman-201");
         offer.setPrix(new BigDecimal("90.00"));
-        offer.setDateDebut(date("2026-01-01"));
-        offer.setDateFin(date("2026-12-31"));
+        offer.setDateDebut(date("2030-01-01"));
+        offer.setDateFin(date("2030-12-31"));
         offer.setNbLits(3);
         offer.setHotel("Hotel Pullman");
 
@@ -68,8 +68,8 @@ class HotelEndpointSoapTest {
                     <h:login>agence1</h:login>
                     <h:password>secret</h:password>
                     <h:ville>Montpellier</h:ville>
-                    <h:dateArrivee>2026-06-01</h:dateArrivee>
-                    <h:dateDepart>2026-06-05</h:dateDepart>
+                    <h:dateArrivee>2030-06-01</h:dateArrivee>
+                    <h:dateDepart>2030-06-05</h:dateDepart>
                     <h:nbPersonnes>2</h:nbPersonnes>
                 </h:ConsultationRequest>
                 """);

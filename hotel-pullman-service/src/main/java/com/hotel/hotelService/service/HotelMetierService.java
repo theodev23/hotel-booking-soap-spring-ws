@@ -44,8 +44,8 @@ public class HotelMetierService {
                 "201",
                 3,
                 new BigDecimal("90.00"),
-                LocalDate.of(2026, 1, 1),
-                LocalDate.of(2026, 12, 31),
+                LocalDate.of(2030, 1, 1),
+                LocalDate.of(2030, 12, 31),
                 "chambre2.jpg"
         ));
 

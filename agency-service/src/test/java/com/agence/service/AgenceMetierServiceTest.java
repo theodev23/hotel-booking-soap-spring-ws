@@ -75,8 +75,8 @@ class AgenceMetierServiceTest {
 
         List<OffreType> offers = service.consulter(
                 "Montpellier",
-                date("2026-06-01"),
-                date("2026-06-05"),
+                date("2030-06-01"),
+                date("2030-06-05"),
                 2,
                 "AG001",
                 "agence1",
@@ -122,8 +122,8 @@ class AgenceMetierServiceTest {
 
         List<OffreType> offers = service.consulter(
                 "Montpellier",
-                date("2026-06-01"),
-                date("2026-06-05"),
+                date("2030-06-01"),
+                date("2030-06-05"),
                 2,
                 "AG001",
                 "agence1",
@@ -153,8 +153,8 @@ class AgenceMetierServiceTest {
 
         List<OffreType> offers = service.consulter(
                 "Montpellier",
-                date("2026-06-01"),
-                date("2026-06-05"),
+                date("2030-06-01"),
+                date("2030-06-05"),
                 2,
                 "AG001",
                 "agence1",
@@ -286,8 +286,8 @@ class AgenceMetierServiceTest {
     void shouldRejectInvalidDateRangeWithoutCallingHotels() {
         List<OffreType> offers = service.consulter(
                 "Montpellier",
-                date("2026-06-10"),
-                date("2026-06-05"),
+                date("2030-06-10"),
+                date("2030-06-05"),
                 2,
                 "AG001",
                 "agence1",
@@ -302,8 +302,8 @@ class AgenceMetierServiceTest {
     void shouldRejectNonPositivePersonCountWithoutCallingHotels() {
         List<OffreType> offers = service.consulter(
                 "Montpellier",
-                date("2026-06-01"),
-                date("2026-06-05"),
+                date("2030-06-01"),
+                date("2030-06-05"),
                 0,
                 "AG001",
                 "agence1",
@@ -325,8 +325,8 @@ class AgenceMetierServiceTest {
 
         offer.setIdOffre(id);
         offer.setPrix(new BigDecimal(price));
-        offer.setDateDebut(date("2026-01-01"));
-        offer.setDateFin(date("2026-12-31"));
+        offer.setDateDebut(date("2030-01-01"));
+        offer.setDateFin(date("2030-12-31"));
         offer.setNbLits(beds);
         offer.setHotel(hotelName);
 

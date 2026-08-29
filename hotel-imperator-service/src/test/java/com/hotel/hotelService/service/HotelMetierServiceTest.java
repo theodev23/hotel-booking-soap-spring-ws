@@ -20,8 +20,8 @@ class HotelMetierServiceTest {
     void shouldReturnOfferWhenRequestedDatesAreWithinAvailability() {
         List<OffreType> offers = service.consulter(
                 "Montpellier",
-                date("2026-06-01"),
-                date("2026-06-05"),
+                date("2030-06-01"),
+                date("2030-06-05"),
                 2,
                 "AG001",
                 "agence1",
@@ -36,8 +36,8 @@ class HotelMetierServiceTest {
     void shouldReturnNoOfferWhenArrivalIsBeforeAvailability() {
         List<OffreType> offers = service.consulter(
                 "Montpellier",
-                date("2025-12-31"),
-                date("2026-01-05"),
+                date("2029-12-31"),
+                date("2030-01-05"),
                 2,
                 "AG001",
                 "agence1",
@@ -51,8 +51,8 @@ class HotelMetierServiceTest {
     void shouldReturnNoOfferWhenDepartureIsAfterAvailability() {
         List<OffreType> offers = service.consulter(
                 "Montpellier",
-                date("2026-12-30"),
-                date("2027-01-01"),
+                date("2030-12-30"),
+                date("2031-01-01"),
                 2,
                 "AG001",
                 "agence1",
@@ -66,8 +66,8 @@ class HotelMetierServiceTest {
     void shouldReturnNoOfferForUnauthorizedAgency() {
         List<OffreType> offers = service.consulter(
                 "Montpellier",
-                date("2026-06-01"),
-                date("2026-06-05"),
+                date("2030-06-01"),
+                date("2030-06-05"),
                 2,
                 "UNKNOWN",
                 "invalid",
@@ -165,8 +165,8 @@ class HotelMetierServiceTest {
 
         List<OffreType> offers = service.consulter(
                 "Montpellier",
-                date("2026-06-01"),
-                date("2026-06-05"),
+                date("2030-06-01"),
+                date("2030-06-05"),
                 2,
                 "AG001",
                 "agence1",
@@ -181,8 +181,8 @@ class HotelMetierServiceTest {
     void shouldReturnNoOfferWhenArrivalEqualsDeparture() {
         List<OffreType> offers = service.consulter(
                 "Montpellier",
-                date("2026-06-05"),
-                date("2026-06-05"),
+                date("2030-06-05"),
+                date("2030-06-05"),
                 1,
                 "AG001",
                 "agence1",
@@ -196,8 +196,8 @@ class HotelMetierServiceTest {
     void shouldReturnNoOfferWhenArrivalIsAfterDeparture() {
         List<OffreType> offers = service.consulter(
                 "Montpellier",
-                date("2026-06-10"),
-                date("2026-06-05"),
+                date("2030-06-10"),
+                date("2030-06-05"),
                 1,
                 "AG001",
                 "agence1",
@@ -211,8 +211,8 @@ class HotelMetierServiceTest {
     void shouldReturnNoOfferWhenPersonCountIsZero() {
         List<OffreType> offers = service.consulter(
                 "Montpellier",
-                date("2026-06-01"),
-                date("2026-06-05"),
+                date("2030-06-01"),
+                date("2030-06-05"),
                 0,
                 "AG001",
                 "agence1",
@@ -226,8 +226,8 @@ class HotelMetierServiceTest {
     void shouldReturnNoOfferWhenPersonCountIsNegative() {
         List<OffreType> offers = service.consulter(
                 "Montpellier",
-                date("2026-06-01"),
-                date("2026-06-05"),
+                date("2030-06-01"),
+                date("2030-06-05"),
                 -1,
                 "AG001",
                 "agence1",
