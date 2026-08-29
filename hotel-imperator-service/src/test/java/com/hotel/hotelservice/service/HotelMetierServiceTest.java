@@ -1,4 +1,4 @@
-package com.hotel.hotelService.service;
+package com.hotel.hotelservice.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -22,14 +22,14 @@ class HotelMetierServiceTest {
                 "Montpellier",
                 date("2030-06-01"),
                 date("2030-06-05"),
-                3,
+                2,
                 "AG001",
                 "agence1",
                 "secret"
         );
 
         assertEquals(1, offers.size());
-        assertEquals("Pullman-201", offers.getFirst().getIdOffre());
+        assertEquals("Imperator-101", offers.getFirst().getIdOffre());
     }
 
     @Test
@@ -38,7 +38,7 @@ class HotelMetierServiceTest {
                 "Montpellier",
                 date("2029-12-31"),
                 date("2030-01-05"),
-                3,
+                2,
                 "AG001",
                 "agence1",
                 "secret"
@@ -53,7 +53,7 @@ class HotelMetierServiceTest {
                 "Montpellier",
                 date("2030-12-30"),
                 date("2031-01-01"),
-                3,
+                2,
                 "AG001",
                 "agence1",
                 "secret"
@@ -68,7 +68,7 @@ class HotelMetierServiceTest {
                 "Montpellier",
                 date("2030-06-01"),
                 date("2030-06-05"),
-                3,
+                2,
                 "UNKNOWN",
                 "invalid",
                 "invalid"
@@ -81,7 +81,7 @@ class HotelMetierServiceTest {
     @Test
     void shouldReserveExistingOffer() {
         boolean reserved = service.reserver(
-                "Pullman-201",
+                "Imperator-101",
                 "Doe",
                 "Jane",
                 "demo-card",
@@ -96,7 +96,7 @@ class HotelMetierServiceTest {
     @Test
     void shouldRejectUnknownOffer() {
         boolean reserved = service.reserver(
-                "Pullman-999",
+                "Imperator-999",
                 "Doe",
                 "Jane",
                 "demo-card",
@@ -111,7 +111,7 @@ class HotelMetierServiceTest {
     @Test
     void shouldRejectDuplicateReservation() {
         boolean firstReservation = service.reserver(
-                "Pullman-201",
+                "Imperator-101",
                 "Doe",
                 "Jane",
                 "demo-card",
@@ -121,7 +121,7 @@ class HotelMetierServiceTest {
         );
 
         boolean secondReservation = service.reserver(
-                "Pullman-201",
+                "Imperator-101",
                 "Smith",
                 "John",
                 "demo-card-2",
@@ -137,7 +137,7 @@ class HotelMetierServiceTest {
     @Test
     void shouldRejectReservationForUnauthorizedAgency() {
         boolean reserved = service.reserver(
-                "Pullman-201",
+                "Imperator-101",
                 "Doe",
                 "Jane",
                 "demo-card",
@@ -152,7 +152,7 @@ class HotelMetierServiceTest {
     @Test
     void shouldHideReservedOfferFromConsultation() {
         boolean reserved = service.reserver(
-                "Pullman-201",
+                "Imperator-101",
                 "Doe",
                 "Jane",
                 "demo-card",
@@ -167,7 +167,7 @@ class HotelMetierServiceTest {
                 "Montpellier",
                 date("2030-06-01"),
                 date("2030-06-05"),
-                3,
+                2,
                 "AG001",
                 "agence1",
                 "secret"

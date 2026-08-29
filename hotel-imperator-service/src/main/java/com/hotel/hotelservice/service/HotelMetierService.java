@@ -1,4 +1,4 @@
-package com.hotel.hotelService.service;
+package com.hotel.hotelservice.service;
 
 import java.math.BigDecimal;
 

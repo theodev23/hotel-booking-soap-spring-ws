@@ -1,4 +1,4 @@
-package com.hotel.hotelService;
+package com.hotel.hotelservice;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -23,7 +23,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.ws.test.server.MockWebServiceClient;
 import org.springframework.xml.transform.StringSource;
 
-import com.hotel.hotelService.service.HotelMetierService;
+import com.hotel.hotelservice.service.HotelMetierService;
 import com.hotel.wsdl.OffreType;
 
 @SpringBootTest
@@ -45,12 +45,12 @@ class HotelEndpointSoapTest {
     @Test
     void shouldExposeConsultationThroughSoapPayload() {
         OffreType offer = new OffreType();
-        offer.setIdOffre("Pullman-201");
-        offer.setPrix(new BigDecimal("90.00"));
+        offer.setIdOffre("Imperator-101");
+        offer.setPrix(new BigDecimal("120.00"));
         offer.setDateDebut(date("2030-01-01"));
         offer.setDateFin(date("2030-12-31"));
-        offer.setNbLits(3);
-        offer.setHotel("Hotel Pullman");
+        offer.setNbLits(2);
+        offer.setHotel("Hotel de l'imperator");
 
         when(service.consulter(
                 eq("Montpellier"),
@@ -87,14 +87,14 @@ class HotelEndpointSoapTest {
                                 "string(/*[local-name()='ConsultationResponse']"
                                 + "/*[local-name()='offre']"
                                 + "/*[local-name()='idOffre'])"
-                        ).evaluatesTo("Pullman-201")
+                        ).evaluatesTo("Imperator-101")
                 )
                 .andExpect(
                         xpath(
                                 "string(/*[local-name()='ConsultationResponse']"
                                 + "/*[local-name()='offre']"
                                 + "/*[local-name()='prix'])"
-                        ).evaluatesTo("90.00")
+                        ).evaluatesTo("120.00")
                 );
 
         verify(service).consulter(
@@ -111,7 +111,7 @@ class HotelEndpointSoapTest {
     @Test
     void shouldExposeSuccessfulReservationThroughSoapPayload() {
         when(service.reserver(
-                "Pullman-201",
+                "Imperator-101",
                 "Doe",
                 "Jane",
                 "demo-card",
@@ -125,7 +125,7 @@ class HotelEndpointSoapTest {
                     <h:idAgence>AG001</h:idAgence>
                     <h:login>agence1</h:login>
                     <h:password>secret</h:password>
-                    <h:idOffre>Pullman-201</h:idOffre>
+                    <h:idOffre>Imperator-101</h:idOffre>
                     <h:nomClient>Doe</h:nomClient>
                     <h:prenomClient>Jane</h:prenomClient>
                     <h:carte>demo-card</h:carte>
@@ -142,7 +142,7 @@ class HotelEndpointSoapTest {
                 );
 
         verify(service).reserver(
-                "Pullman-201",
+                "Imperator-101",
                 "Doe",
                 "Jane",
                 "demo-card",
