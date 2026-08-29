@@ -109,6 +109,50 @@ class AgenceEndpointSoapTest {
     }
 
     @Test
+    void shouldExposeEmptyConsultationResponseThroughSoapPayload() {
+        when(service.consulter(
+                eq("Montpellier"),
+                any(XMLGregorianCalendar.class),
+                any(XMLGregorianCalendar.class),
+                eq(2),
+                eq("AG001"),
+                eq("agence1"),
+                eq("demo-password")
+        )).thenReturn(List.of());
+
+        StringSource request = new StringSource("""
+                <a:ConsultationAgenceRequest xmlns:a="http://agence.com/soap">
+                    <a:idAgence>AG001</a:idAgence>
+                    <a:login>agence1</a:login>
+                    <a:password>demo-password</a:password>
+                    <a:ville>Montpellier</a:ville>
+                    <a:dateArrivee>2030-06-01</a:dateArrivee>
+                    <a:dateDepart>2030-06-05</a:dateDepart>
+                    <a:nbPersonnes>2</a:nbPersonnes>
+                </a:ConsultationAgenceRequest>
+                """);
+
+        client.sendRequest(withPayload(request))
+                .andExpect(noFault())
+                .andExpect(
+                        xpath(
+                                "count(/*[local-name()='ConsultationAgenceResponse']"
+                                + "/*[local-name()='offre'])"
+                        ).evaluatesTo(0)
+                );
+
+        verify(service).consulter(
+                eq("Montpellier"),
+                any(XMLGregorianCalendar.class),
+                any(XMLGregorianCalendar.class),
+                eq(2),
+                eq("AG001"),
+                eq("agence1"),
+                eq("demo-password")
+        );
+    }
+
+    @Test
     void shouldExposeSuccessfulReservationThroughSoapPayload() {
         when(service.reserver(
                 "AG001",

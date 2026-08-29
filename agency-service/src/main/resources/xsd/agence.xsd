@@ -45,7 +45,7 @@
     <xs:element name="ConsultationAgenceResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="offre" type="tns:OffreType" maxOccurs="unbounded"/>
+                <xs:element name="offre" type="tns:OffreType" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
