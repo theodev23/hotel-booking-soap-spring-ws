@@ -49,8 +49,7 @@ public class AgenceMetierService {
 
     // Tarifs
     private static final Map<String, BigDecimal> TARIFS_AGENCES = Map.of(
-            "AG001", new BigDecimal("0.90"),      // -10%
-            "AG002", new BigDecimal("1.05")      // +5%
+            "AG001", new BigDecimal("0.90") // -10%
     );
 
     private BigDecimal appliquerTarif(
@@ -84,6 +83,19 @@ public class AgenceMetierService {
                                      String mdp) {
 
         List<OffreType> resultats = new ArrayList<>();
+
+        Instant arrivee = dateArrivee.toGregorianCalendar().toInstant();
+        Instant depart = dateDepart.toGregorianCalendar().toInstant();
+
+        if (nbPersonnes <= 0 || !arrivee.isBefore(depart)) {
+            LOGGER.warn(
+                    "Invalid consultation criteria: arrival={}, departure={}, guests={}",
+                    dateArrivee,
+                    dateDepart,
+                    nbPersonnes
+            );
+            return resultats;
+        }
 
         // Requête envoyée aux hôtels
         ConsultationRequest req = new ConsultationRequest();
@@ -126,9 +138,6 @@ public class AgenceMetierService {
         }
 
      // filtrage
-     Instant arrivee = dateArrivee.toGregorianCalendar().toInstant();
-     Instant depart  = dateDepart.toGregorianCalendar().toInstant();
-
      List<OffreType> filtres = resultats.stream()
              .filter(o -> o.getNbLits() >= nbPersonnes)
              .filter(o -> !o.getDateDebut().toGregorianCalendar().toInstant().isAfter(arrivee))

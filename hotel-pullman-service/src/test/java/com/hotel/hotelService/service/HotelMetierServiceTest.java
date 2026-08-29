@@ -176,6 +176,67 @@ class HotelMetierServiceTest {
         assertTrue(offers.isEmpty());
     }
 
+
+    @Test
+    void shouldReturnNoOfferWhenArrivalEqualsDeparture() {
+        List<OffreType> offers = service.consulter(
+                "Montpellier",
+                date("2026-06-05"),
+                date("2026-06-05"),
+                1,
+                "AG001",
+                "agence1",
+                "secret"
+        );
+
+        assertTrue(offers.isEmpty());
+    }
+
+    @Test
+    void shouldReturnNoOfferWhenArrivalIsAfterDeparture() {
+        List<OffreType> offers = service.consulter(
+                "Montpellier",
+                date("2026-06-10"),
+                date("2026-06-05"),
+                1,
+                "AG001",
+                "agence1",
+                "secret"
+        );
+
+        assertTrue(offers.isEmpty());
+    }
+
+    @Test
+    void shouldReturnNoOfferWhenPersonCountIsZero() {
+        List<OffreType> offers = service.consulter(
+                "Montpellier",
+                date("2026-06-01"),
+                date("2026-06-05"),
+                0,
+                "AG001",
+                "agence1",
+                "secret"
+        );
+
+        assertTrue(offers.isEmpty());
+    }
+
+    @Test
+    void shouldReturnNoOfferWhenPersonCountIsNegative() {
+        List<OffreType> offers = service.consulter(
+                "Montpellier",
+                date("2026-06-01"),
+                date("2026-06-05"),
+                -1,
+                "AG001",
+                "agence1",
+                "secret"
+        );
+
+        assertTrue(offers.isEmpty());
+    }
+
     private XMLGregorianCalendar date(String value) {
         try {
             return DatatypeFactory.newInstance()

@@ -67,8 +67,23 @@ public class HotelMetierService {
             return new ArrayList<>();
         }
 
-        LocalDate debut = dateArrivee.toGregorianCalendar().toZonedDateTime().toLocalDate();
-        LocalDate fin = dateDepart.toGregorianCalendar().toZonedDateTime().toLocalDate();
+        LocalDate debut = dateArrivee.toGregorianCalendar()
+                .toZonedDateTime()
+                .toLocalDate();
+
+        LocalDate fin = dateDepart.toGregorianCalendar()
+                .toZonedDateTime()
+                .toLocalDate();
+
+        if (nbPersonnes <= 0 || !debut.isBefore(fin)) {
+            LOGGER.warn(
+                    "Invalid consultation criteria: arrival={}, departure={}, guests={}",
+                    debut,
+                    fin,
+                    nbPersonnes
+            );
+            return new ArrayList<>();
+        }
 
         List<OffreType> offres = new ArrayList<>();
 

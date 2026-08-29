@@ -8,6 +8,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
@@ -278,6 +279,39 @@ class AgenceMetierServiceTest {
         );
 
         assertFalse(reserved);
+    }
+
+
+    @Test
+    void shouldRejectInvalidDateRangeWithoutCallingHotels() {
+        List<OffreType> offers = service.consulter(
+                "Montpellier",
+                date("2026-06-10"),
+                date("2026-06-05"),
+                2,
+                "AG001",
+                "agence1",
+                "secret"
+        );
+
+        assertTrue(offers.isEmpty());
+        verifyNoInteractions(webServiceTemplate);
+    }
+
+    @Test
+    void shouldRejectNonPositivePersonCountWithoutCallingHotels() {
+        List<OffreType> offers = service.consulter(
+                "Montpellier",
+                date("2026-06-01"),
+                date("2026-06-05"),
+                0,
+                "AG001",
+                "agence1",
+                "secret"
+        );
+
+        assertTrue(offers.isEmpty());
+        verifyNoInteractions(webServiceTemplate);
     }
 
     private ConsultationResponse consultationResponse(
