@@ -10,7 +10,7 @@
     <xs:complexType name="OffreType">
         <xs:sequence>
             <xs:element name="idOffre" type="xs:string"/>
-            <xs:element name="prix" type="xs:double"/>
+            <xs:element name="prix" type="xs:decimal"/>
             <xs:element name="dateDebut" type="xs:date"/>
             <xs:element name="dateFin" type="xs:date"/>
             <xs:element name="nbLits" type="xs:int"/>

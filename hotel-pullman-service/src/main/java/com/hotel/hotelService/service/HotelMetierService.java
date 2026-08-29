@@ -1,5 +1,7 @@
 package com.hotel.hotelService.service;
 
+import java.math.BigDecimal;
+
 import com.hotel.model.*;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -41,7 +43,7 @@ public class HotelMetierService {
         hotel.ajouterChambre(new Chambre(
                 "201",
                 3,
-                90,
+                new BigDecimal("90.00"),
                 LocalDate.of(2026, 1, 1),
                 LocalDate.of(2026, 12, 31),
                 "chambre2.jpg"

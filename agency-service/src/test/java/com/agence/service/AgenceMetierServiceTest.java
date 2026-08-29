@@ -10,6 +10,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.xml.datatype.DatatypeFactory;
@@ -53,7 +54,7 @@ class AgenceMetierServiceTest {
         )).thenReturn(
                 consultationResponse(
                         "Imperator-101",
-                        120.0,
+                        "120.00",
                         2,
                         "Hotel de l'imperator"
                 )
@@ -65,7 +66,7 @@ class AgenceMetierServiceTest {
         )).thenReturn(
                 consultationResponse(
                         "Pullman-201",
-                        90.0,
+                        "90.00",
                         3,
                         "Hotel Pullman"
                 )
@@ -93,8 +94,8 @@ class AgenceMetierServiceTest {
                 .findFirst()
                 .orElseThrow();
 
-        assertEquals(108.0, imperator.getPrix(), 0.0001);
-        assertEquals(81.0, pullman.getPrix(), 0.0001);
+        assertEquals(new BigDecimal("108.00"), imperator.getPrix());
+        assertEquals(new BigDecimal("81.00"), pullman.getPrix());
     }
 
     @Test
@@ -112,7 +113,7 @@ class AgenceMetierServiceTest {
         )).thenReturn(
                 consultationResponse(
                         "Pullman-201",
-                        90.0,
+                        "90.00",
                         3,
                         "Hotel Pullman"
                 )
@@ -130,7 +131,7 @@ class AgenceMetierServiceTest {
 
         assertEquals(1, offers.size());
         assertEquals("Pullman-201", offers.getFirst().getIdOffre());
-        assertEquals(81.0, offers.getFirst().getPrix(), 0.0001);
+        assertEquals(new BigDecimal("81.00"), offers.getFirst().getPrix());
     }
 
     @Test
@@ -281,7 +282,7 @@ class AgenceMetierServiceTest {
 
     private ConsultationResponse consultationResponse(
             String id,
-            double price,
+            String price,
             int beds,
             String hotelName) {
 
@@ -289,7 +290,7 @@ class AgenceMetierServiceTest {
                 new com.hotel.wsdl.OffreType();
 
         offer.setIdOffre(id);
-        offer.setPrix(price);
+        offer.setPrix(new BigDecimal(price));
         offer.setDateDebut(date("2026-01-01"));
         offer.setDateFin(date("2026-12-31"));
         offer.setNbLits(beds);

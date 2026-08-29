@@ -1,6 +1,8 @@
 package com.agence.service;
 
 import java.time.Instant;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -46,14 +48,22 @@ public class AgenceMetierService {
 
 
     // Tarifs
-    private static final Map<String, Double> TARIFS_AGENCES = Map.of(
-            "AG001", 0.9,      // -10%
-            "AG002", 1.05      // +5%
+    private static final Map<String, BigDecimal> TARIFS_AGENCES = Map.of(
+            "AG001", new BigDecimal("0.90"),      // -10%
+            "AG002", new BigDecimal("1.05")      // +5%
     );
 
-    private double appliquerTarif(String idAgence, double prix) {
-        double coef = TARIFS_AGENCES.getOrDefault(idAgence, 1.0);
-        return prix * coef;
+    private BigDecimal appliquerTarif(
+            String idAgence,
+            BigDecimal prix) {
+
+        BigDecimal coefficient = TARIFS_AGENCES.getOrDefault(
+                idAgence,
+                BigDecimal.ONE
+        );
+
+        return prix.multiply(coefficient)
+                .setScale(2, RoundingMode.HALF_UP);
     }
 
     /**
@@ -127,7 +137,7 @@ public class AgenceMetierService {
 
      // tarification agence
      for (OffreType o : filtres) {
-         double nouveauPrix = appliquerTarif(idAgence, o.getPrix());
+         BigDecimal nouveauPrix = appliquerTarif(idAgence, o.getPrix());
          o.setPrix(nouveauPrix);
      }
 
