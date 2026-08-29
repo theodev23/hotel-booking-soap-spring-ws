@@ -2,10 +2,6 @@ package com.hotel.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.XMLGregorianCalendar;
-import java.time.LocalDate;
 
 public class Hotel {
 
@@ -38,21 +34,6 @@ public class Hotel {
     	return adresse; 
     }
 
-    
-     // Recherche les chambres correspondant aux critères
-     
-    
- // Méthode adaptée pour le Web Service SOAP → Convertit les chambres en OffresType
-    
-    // Méthode pour convertir les dates
-    private XMLGregorianCalendar toXML(LocalDate date) {
-        try {
-            return DatatypeFactory.newInstance()
-                    .newXMLGregorianCalendar(date.toString());
-        } catch (DatatypeConfigurationException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     // Méthode pour ajouter une agence
     public void ajouterAgence(Agence a){
