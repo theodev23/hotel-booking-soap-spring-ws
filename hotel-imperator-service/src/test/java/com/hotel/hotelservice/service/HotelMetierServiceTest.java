@@ -14,7 +14,15 @@ import com.hotel.wsdl.OffreType;
 
 class HotelMetierServiceTest {
 
-    private final HotelMetierService service = new HotelMetierService();
+    private static final String AGENCY_ID = "TEST001";
+    private static final String AGENCY_LOGIN = "test-agency";
+    private static final String AGENCY_PASSWORD = "test-password";
+
+    private final HotelMetierService service = new HotelMetierService(
+            AGENCY_ID,
+            AGENCY_LOGIN,
+            AGENCY_PASSWORD
+    );
 
     @Test
     void shouldReturnOfferWhenRequestedDatesAreWithinAvailability() {
@@ -23,9 +31,9 @@ class HotelMetierServiceTest {
                 date("2030-06-01"),
                 date("2030-06-05"),
                 2,
-                "AG001",
-                "agence1",
-                "secret"
+                AGENCY_ID,
+                AGENCY_LOGIN,
+                AGENCY_PASSWORD
         );
 
         assertEquals(1, offers.size());
@@ -39,9 +47,9 @@ class HotelMetierServiceTest {
                 date("2029-12-31"),
                 date("2030-01-05"),
                 2,
-                "AG001",
-                "agence1",
-                "secret"
+                AGENCY_ID,
+                AGENCY_LOGIN,
+                AGENCY_PASSWORD
         );
 
         assertTrue(offers.isEmpty());
@@ -54,9 +62,9 @@ class HotelMetierServiceTest {
                 date("2030-12-30"),
                 date("2031-01-01"),
                 2,
-                "AG001",
-                "agence1",
-                "secret"
+                AGENCY_ID,
+                AGENCY_LOGIN,
+                AGENCY_PASSWORD
         );
 
         assertTrue(offers.isEmpty());
@@ -85,9 +93,9 @@ class HotelMetierServiceTest {
                 "Doe",
                 "Jane",
                 "demo-card",
-                "AG001",
-                "agence1",
-                "secret"
+                AGENCY_ID,
+                AGENCY_LOGIN,
+                AGENCY_PASSWORD
         );
 
         assertTrue(reserved);
@@ -100,9 +108,9 @@ class HotelMetierServiceTest {
                 "Doe",
                 "Jane",
                 "demo-card",
-                "AG001",
-                "agence1",
-                "secret"
+                AGENCY_ID,
+                AGENCY_LOGIN,
+                AGENCY_PASSWORD
         );
 
         assertTrue(!reserved);
@@ -115,9 +123,9 @@ class HotelMetierServiceTest {
                 "Doe",
                 "Jane",
                 "demo-card",
-                "AG001",
-                "agence1",
-                "secret"
+                AGENCY_ID,
+                AGENCY_LOGIN,
+                AGENCY_PASSWORD
         );
 
         boolean secondReservation = service.reserver(
@@ -125,9 +133,9 @@ class HotelMetierServiceTest {
                 "Smith",
                 "John",
                 "demo-card-2",
-                "AG001",
-                "agence1",
-                "secret"
+                AGENCY_ID,
+                AGENCY_LOGIN,
+                AGENCY_PASSWORD
         );
 
         assertTrue(firstReservation);
@@ -156,9 +164,9 @@ class HotelMetierServiceTest {
                 "Doe",
                 "Jane",
                 "demo-card",
-                "AG001",
-                "agence1",
-                "secret"
+                AGENCY_ID,
+                AGENCY_LOGIN,
+                AGENCY_PASSWORD
         );
 
         assertTrue(reserved);
@@ -168,9 +176,9 @@ class HotelMetierServiceTest {
                 date("2030-06-01"),
                 date("2030-06-05"),
                 2,
-                "AG001",
-                "agence1",
-                "secret"
+                AGENCY_ID,
+                AGENCY_LOGIN,
+                AGENCY_PASSWORD
         );
 
         assertTrue(offers.isEmpty());
@@ -184,9 +192,9 @@ class HotelMetierServiceTest {
                 date("2030-06-05"),
                 date("2030-06-05"),
                 1,
-                "AG001",
-                "agence1",
-                "secret"
+                AGENCY_ID,
+                AGENCY_LOGIN,
+                AGENCY_PASSWORD
         );
 
         assertTrue(offers.isEmpty());
@@ -199,9 +207,9 @@ class HotelMetierServiceTest {
                 date("2030-06-10"),
                 date("2030-06-05"),
                 1,
-                "AG001",
-                "agence1",
-                "secret"
+                AGENCY_ID,
+                AGENCY_LOGIN,
+                AGENCY_PASSWORD
         );
 
         assertTrue(offers.isEmpty());
@@ -214,9 +222,9 @@ class HotelMetierServiceTest {
                 date("2030-06-01"),
                 date("2030-06-05"),
                 0,
-                "AG001",
-                "agence1",
-                "secret"
+                AGENCY_ID,
+                AGENCY_LOGIN,
+                AGENCY_PASSWORD
         );
 
         assertTrue(offers.isEmpty());
@@ -229,9 +237,9 @@ class HotelMetierServiceTest {
                 date("2030-06-01"),
                 date("2030-06-05"),
                 -1,
-                "AG001",
-                "agence1",
-                "secret"
+                AGENCY_ID,
+                AGENCY_LOGIN,
+                AGENCY_PASSWORD
         );
 
         assertTrue(offers.isEmpty());

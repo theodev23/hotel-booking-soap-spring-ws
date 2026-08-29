@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -39,27 +38,28 @@ public class AgenceMetierService {
     public AgenceMetierService(
             WebServiceTemplate webServiceTemplate,
             @Value("${hotels.imperator.uri}") String hotelImperatorUri,
-            @Value("${hotels.pullman.uri}") String hotelPullmanUri) {
+            @Value("${hotels.pullman.uri}") String hotelPullmanUri,
+            @Value("${demo.agency.id}") String partnerAgencyId) {
 
         this.webServiceTemplate = webServiceTemplate;
         this.hotelImperatorUri = hotelImperatorUri;
         this.hotelPullmanUri = hotelPullmanUri;
+        this.partnerAgencyId = partnerAgencyId;
     }
 
 
-    // Tarifs
-    private static final Map<String, BigDecimal> TARIFS_AGENCES = Map.of(
-            "AG001", new BigDecimal("0.90") // -10%
-    );
+    private static final BigDecimal PARTNER_RATE =
+            new BigDecimal("0.90");
+
+    private final String partnerAgencyId;
 
     private BigDecimal appliquerTarif(
             String idAgence,
             BigDecimal prix) {
 
-        BigDecimal coefficient = TARIFS_AGENCES.getOrDefault(
-                idAgence,
-                BigDecimal.ONE
-        );
+        BigDecimal coefficient = partnerAgencyId.equals(idAgence)
+                ? PARTNER_RATE
+                : BigDecimal.ONE;
 
         return prix.multiply(coefficient)
                 .setScale(2, RoundingMode.HALF_UP);

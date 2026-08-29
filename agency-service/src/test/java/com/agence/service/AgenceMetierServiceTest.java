@@ -43,7 +43,8 @@ class AgenceMetierServiceTest {
         service = new AgenceMetierService(
                 webServiceTemplate,
                 IMPERATOR_URI,
-                PULLMAN_URI
+                PULLMAN_URI,
+                "AG001"
         );
     }
 
@@ -80,7 +81,7 @@ class AgenceMetierServiceTest {
                 2,
                 "AG001",
                 "agence1",
-                "secret"
+                "demo-password"
         );
 
         assertEquals(2, offers.size());
@@ -127,7 +128,7 @@ class AgenceMetierServiceTest {
                 2,
                 "AG001",
                 "agence1",
-                "secret"
+                "demo-password"
         );
 
         assertEquals(1, offers.size());
@@ -158,7 +159,7 @@ class AgenceMetierServiceTest {
                 2,
                 "AG001",
                 "agence1",
-                "secret"
+                "demo-password"
         );
 
         assertTrue(offers.isEmpty());
@@ -176,7 +177,7 @@ class AgenceMetierServiceTest {
         boolean reserved = service.reserver(
                 "AG001",
                 "agence1",
-                "secret",
+                "demo-password",
                 "Imperator-101",
                 "Doe",
                 "Jane",
@@ -213,7 +214,7 @@ class AgenceMetierServiceTest {
         boolean reserved = service.reserver(
                 "AG001",
                 "agence1",
-                "secret",
+                "demo-password",
                 "Pullman-201",
                 "Doe",
                 "Jane",
@@ -242,7 +243,7 @@ class AgenceMetierServiceTest {
         boolean reserved = service.reserver(
                 "AG001",
                 "agence1",
-                "secret",
+                "demo-password",
                 "Pullman-201",
                 "Doe",
                 "Jane",
@@ -271,7 +272,7 @@ class AgenceMetierServiceTest {
         boolean reserved = service.reserver(
                 "AG001",
                 "agence1",
-                "secret",
+                "demo-password",
                 "UNKNOWN-999",
                 "Doe",
                 "Jane",
@@ -291,7 +292,7 @@ class AgenceMetierServiceTest {
                 2,
                 "AG001",
                 "agence1",
-                "secret"
+                "demo-password"
         );
 
         assertTrue(offers.isEmpty());
@@ -307,7 +308,7 @@ class AgenceMetierServiceTest {
                 0,
                 "AG001",
                 "agence1",
-                "secret"
+                "demo-password"
         );
 
         assertTrue(offers.isEmpty());

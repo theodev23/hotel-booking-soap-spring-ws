@@ -59,14 +59,14 @@ class HotelEndpointSoapTest {
                 eq(2),
                 eq("AG001"),
                 eq("agence1"),
-                eq("secret")
+                eq("demo-password")
         )).thenReturn(List.of(offer));
 
         StringSource request = new StringSource("""
                 <h:ConsultationRequest xmlns:h="http://hotel.com/soap">
                     <h:idAgence>AG001</h:idAgence>
                     <h:login>agence1</h:login>
-                    <h:password>secret</h:password>
+                    <h:password>demo-password</h:password>
                     <h:ville>Montpellier</h:ville>
                     <h:dateArrivee>2030-06-01</h:dateArrivee>
                     <h:dateDepart>2030-06-05</h:dateDepart>
@@ -104,7 +104,7 @@ class HotelEndpointSoapTest {
                 eq(2),
                 eq("AG001"),
                 eq("agence1"),
-                eq("secret")
+                eq("demo-password")
         );
     }
 
@@ -117,14 +117,14 @@ class HotelEndpointSoapTest {
                 "demo-card",
                 "AG001",
                 "agence1",
-                "secret"
+                "demo-password"
         )).thenReturn(true);
 
         StringSource request = new StringSource("""
                 <h:ReservationRequest xmlns:h="http://hotel.com/soap">
                     <h:idAgence>AG001</h:idAgence>
                     <h:login>agence1</h:login>
-                    <h:password>secret</h:password>
+                    <h:password>demo-password</h:password>
                     <h:idOffre>Pullman-201</h:idOffre>
                     <h:nomClient>Doe</h:nomClient>
                     <h:prenomClient>Jane</h:prenomClient>
@@ -148,7 +148,7 @@ class HotelEndpointSoapTest {
                 "demo-card",
                 "AG001",
                 "agence1",
-                "secret"
+                "demo-password"
         );
     }
 

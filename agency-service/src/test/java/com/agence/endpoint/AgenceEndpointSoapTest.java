@@ -59,14 +59,14 @@ class AgenceEndpointSoapTest {
                 eq(2),
                 eq("AG001"),
                 eq("agence1"),
-                eq("secret")
+                eq("demo-password")
         )).thenReturn(List.of(offer));
 
         StringSource request = new StringSource("""
                 <a:ConsultationAgenceRequest xmlns:a="http://agence.com/soap">
                     <a:idAgence>AG001</a:idAgence>
                     <a:login>agence1</a:login>
-                    <a:password>secret</a:password>
+                    <a:password>demo-password</a:password>
                     <a:ville>Montpellier</a:ville>
                     <a:dateArrivee>2030-06-01</a:dateArrivee>
                     <a:dateDepart>2030-06-05</a:dateDepart>
@@ -104,7 +104,7 @@ class AgenceEndpointSoapTest {
                 eq(2),
                 eq("AG001"),
                 eq("agence1"),
-                eq("secret")
+                eq("demo-password")
         );
     }
 
@@ -113,7 +113,7 @@ class AgenceEndpointSoapTest {
         when(service.reserver(
                 "AG001",
                 "agence1",
-                "secret",
+                "demo-password",
                 "Imperator-101",
                 "Doe",
                 "Jane",
@@ -124,7 +124,7 @@ class AgenceEndpointSoapTest {
                 <a:ReservationAgenceRequest xmlns:a="http://agence.com/soap">
                     <a:idAgence>AG001</a:idAgence>
                     <a:login>agence1</a:login>
-                    <a:password>secret</a:password>
+                    <a:password>demo-password</a:password>
                     <a:idOffre>Imperator-101</a:idOffre>
                     <a:nomClient>Doe</a:nomClient>
                     <a:prenomClient>Jane</a:prenomClient>
@@ -150,7 +150,7 @@ class AgenceEndpointSoapTest {
         verify(service).reserver(
                 "AG001",
                 "agence1",
-                "secret",
+                "demo-password",
                 "Imperator-101",
                 "Doe",
                 "Jane",

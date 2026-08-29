@@ -19,6 +19,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import com.hotel.wsdl.OffreType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -30,7 +31,10 @@ public class HotelMetierService {
     private Hotel hotel;
     private final Set<String> reservedOfferIds = ConcurrentHashMap.newKeySet();
 
-    public HotelMetierService() {
+    public HotelMetierService(
+            @Value("${demo.agency.id}") String agencyId,
+            @Value("${demo.agency.login}") String agencyLogin,
+            @Value("${demo.agency.password}") String agencyPassword) {
 
         Adresse adresse2 = new Adresse(
                 "France",
@@ -52,7 +56,11 @@ public class HotelMetierService {
                 "chambre2.jpg"
         ));
 
-        Agence a1 = new Agence("AG001", "agence1", "secret");
+        Agence a1 = new Agence(
+                agencyId,
+                agencyLogin,
+                agencyPassword
+        );
         hotel.ajouterAgence(a1);
     }
 
