@@ -180,7 +180,7 @@ class AgenceMetierServiceTest {
                 "Imperator-101",
                 "Doe",
                 "Jane",
-                "4111111111111111"
+                "demo-card"
         );
 
         assertTrue(reserved);
@@ -217,7 +217,7 @@ class AgenceMetierServiceTest {
                 "Pullman-201",
                 "Doe",
                 "Jane",
-                "4111111111111111"
+                "demo-card"
         );
 
         assertTrue(reserved);
@@ -246,7 +246,7 @@ class AgenceMetierServiceTest {
                 "Pullman-201",
                 "Doe",
                 "Jane",
-                "4111111111111111"
+                "demo-card"
         );
 
         assertTrue(reserved);
@@ -275,7 +275,7 @@ class AgenceMetierServiceTest {
                 "UNKNOWN-999",
                 "Doe",
                 "Jane",
-                "4111111111111111"
+                "demo-card"
         );
 
         assertFalse(reserved);

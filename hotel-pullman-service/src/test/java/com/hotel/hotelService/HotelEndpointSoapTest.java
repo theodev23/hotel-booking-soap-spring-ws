@@ -114,7 +114,7 @@ class HotelEndpointSoapTest {
                 "Pullman-201",
                 "Doe",
                 "Jane",
-                "4111111111111111",
+                "demo-card",
                 "AG001",
                 "agence1",
                 "secret"
@@ -128,7 +128,7 @@ class HotelEndpointSoapTest {
                     <h:idOffre>Pullman-201</h:idOffre>
                     <h:nomClient>Doe</h:nomClient>
                     <h:prenomClient>Jane</h:prenomClient>
-                    <h:carte>4111111111111111</h:carte>
+                    <h:carte>demo-card</h:carte>
                 </h:ReservationRequest>
                 """);
 
@@ -145,7 +145,7 @@ class HotelEndpointSoapTest {
                 "Pullman-201",
                 "Doe",
                 "Jane",
-                "4111111111111111",
+                "demo-card",
                 "AG001",
                 "agence1",
                 "secret"

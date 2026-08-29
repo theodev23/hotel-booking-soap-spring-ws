@@ -1,7 +1,11 @@
 package com.agence.endpoint;
 
 import com.agence.service.AgenceMetierService;
-import com.agence.wsdl.*;
+import com.agence.wsdl.ConsultationAgenceRequest;
+import com.agence.wsdl.ConsultationAgenceResponse;
+import com.agence.wsdl.OffreType;
+import com.agence.wsdl.ReservationAgenceRequest;
+import com.agence.wsdl.ReservationAgenceResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;

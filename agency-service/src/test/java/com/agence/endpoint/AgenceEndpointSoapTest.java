@@ -117,7 +117,7 @@ class AgenceEndpointSoapTest {
                 "Imperator-101",
                 "Doe",
                 "Jane",
-                "4111111111111111"
+                "demo-card"
         )).thenReturn(true);
 
         StringSource request = new StringSource("""
@@ -128,7 +128,7 @@ class AgenceEndpointSoapTest {
                     <a:idOffre>Imperator-101</a:idOffre>
                     <a:nomClient>Doe</a:nomClient>
                     <a:prenomClient>Jane</a:prenomClient>
-                    <a:carte>4111111111111111</a:carte>
+                    <a:carte>demo-card</a:carte>
                 </a:ReservationAgenceRequest>
                 """);
 
@@ -154,7 +154,7 @@ class AgenceEndpointSoapTest {
                 "Imperator-101",
                 "Doe",
                 "Jane",
-                "4111111111111111"
+                "demo-card"
         );
     }
 

@@ -84,7 +84,7 @@ class HotelMetierServiceTest {
                 "Pullman-201",
                 "Doe",
                 "Jane",
-                "4111111111111111",
+                "demo-card",
                 "AG001",
                 "agence1",
                 "secret"
@@ -99,7 +99,7 @@ class HotelMetierServiceTest {
                 "Pullman-999",
                 "Doe",
                 "Jane",
-                "4111111111111111",
+                "demo-card",
                 "AG001",
                 "agence1",
                 "secret"
@@ -114,7 +114,7 @@ class HotelMetierServiceTest {
                 "Pullman-201",
                 "Doe",
                 "Jane",
-                "4111111111111111",
+                "demo-card",
                 "AG001",
                 "agence1",
                 "secret"
@@ -124,7 +124,7 @@ class HotelMetierServiceTest {
                 "Pullman-201",
                 "Smith",
                 "John",
-                "5555555555554444",
+                "demo-card-2",
                 "AG001",
                 "agence1",
                 "secret"
@@ -140,7 +140,7 @@ class HotelMetierServiceTest {
                 "Pullman-201",
                 "Doe",
                 "Jane",
-                "4111111111111111",
+                "demo-card",
                 "UNKNOWN",
                 "invalid",
                 "invalid"
@@ -155,7 +155,7 @@ class HotelMetierServiceTest {
                 "Pullman-201",
                 "Doe",
                 "Jane",
-                "4111111111111111",
+                "demo-card",
                 "AG001",
                 "agence1",
                 "secret"

@@ -2,7 +2,10 @@ package com.hotel.hotelService.service;
 
 import java.math.BigDecimal;
 
-import com.hotel.model.*;
+import com.hotel.model.Adresse;
+import com.hotel.model.Agence;
+import com.hotel.model.Chambre;
+import com.hotel.model.Hotel;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;

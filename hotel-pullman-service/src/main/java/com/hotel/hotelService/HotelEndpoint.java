@@ -6,8 +6,11 @@ import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 import com.hotel.hotelService.service.HotelMetierService;
-import com.hotel.wsdl.*;
+import com.hotel.wsdl.ConsultationRequest;
+import com.hotel.wsdl.ConsultationResponse;
 import com.hotel.wsdl.OffreType;
+import com.hotel.wsdl.ReservationRequest;
+import com.hotel.wsdl.ReservationResponse;
 
 @Endpoint
 public class HotelEndpoint {
